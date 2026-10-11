@@ -1,0 +1,135 @@
+{
+   
+      "versio
+      "description": "Sig
+      "match_types": [
+        "payload_regex
+        "port_match      - flags traffic to/from a specific port",
+        "flag_match      - matches TCP flag combinations (e.g. NUL
+        "payload_contains - simple substring match, case-insensitive"
+        
+      
+    "r
+      {
+       
+        "name": "SQL Inje
+        "description": "Common SQL injec
+        "severity": "high",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "(UNION[[:space:]]+
+        "mitre_attack": "T1190"
+        
+      {
+       
+        "name": "Cross-Si
+        "description": "Script injection tokens in HT
+        "severity": "medium",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "(<script[^>]*>|one
+        "mitre_attack": "T1190"
+        
+      {
+       
+        "name": "Director
+        "description": "Path traversal sequenc
+        "severity": "high",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "(\\.\\./){2,}|(\\.
+        "mitre_attack": "T1083"
+        
+      {
+       
+        "name": "Suspicio
+        "description": "PowerShell -enc/-EncodedCommand 
+        "severity": "high",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "powershell(\\.exe)
+        "mitre_attack": "T1059.001"
+        
+      {
+       
+        "name": "CertUtil
+        "description": "certutil.exe used 
+        "severity": "high",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "certutil(\\.exe)?[
+        "mitre_attack": "T1105"
+        
+      {
+       
+        "name": "Plaintex
+        "description": "Login/password fields sent i
+        "severity": "medium",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "(username|user|log
+        "mitre_attack": "T1040"
+        
+      {
+       
+        "name": "Known Ma
+        "description": "User-Agent strings as
+        "severity": "medium",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "User-Agent:[[:spac
+        "mitre_attack": "T1595"
+        
+      {
+       
+        "name": "NULL Sca
+        "description": "TCP packet with no 
+        "severity": "medium",
+        "protocol": "tcp",
+        "match_type": "fla
+        "pattern": "NULL",
+        "mitre_attack": "T
+        
+      {
+       
+        "name": "XMAS Sca
+        "description": "TCP 
+        "severity": "medium",
+        "protocol": "tcp",
+        "match_type": "fla
+        "pattern": "FPU",
+        "mitre_attack": "
+        
+      {
+       
+        "name": "FIN Scan
+        "description": "TCP
+        "severity": "low",
+        "protocol": "tcp",
+        "match_type": "fla
+        "pattern": "F",
+        "mitre_attack":
+        
+      {
+       
+        "name": "Telnet C
+        "description": "Traffic on Telnet po
+        "severity": "low",
+        "protocol": "tcp",
+        "match_type": "por
+        "pattern": "23",
+        "mitre_attack": 
+        
+      {
+       
+        "name": "Reverse 
+        "description": "Common reverse she
+        "severity": "critical",
+        "protocol": "tcp",
+        "match_type": "pay
+        "pattern": "(/bin/(ba)?sh[[:sp
+        "mitre_attack": "T1059"
+        
+      
+    
+  
