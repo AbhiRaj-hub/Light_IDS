@@ -1,7 +1,6 @@
 #ifndef IDS_UTIL_H
 #define IDS_UTIL_H
 
-#include <cstddef>
 #include <stddef.h>
 
 // Converts special characters into valid JSON escape sequences,

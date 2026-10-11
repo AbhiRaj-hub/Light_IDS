@@ -3,22 +3,19 @@
 
 #include "event_logger.h"
 #include "packet_types.h"
-#include <cstddef>
-#include <locale>
 #include <regex.h>
 #include <stddef.h>
 
 #define SIG_MAX_RULES 128
 
 typedef struct {
-  char is[32];
+  char id[32];
   char name[128];
   char description[300];
   severity_t severity;
   char protocol[16]; // Matches any protocol
   char match_type
       [32]; //"payload_regex","payload_contains","port_match","flag_match"
-  char pattern[512];
   char pattern[512];
   char mitre_attack[32];
   regex_t compiled_regex;

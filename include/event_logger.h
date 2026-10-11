@@ -9,7 +9,7 @@ typedef enum {
   SEV_DEBUG = 0,
   SEV_INFO = 1,
   SEV_LOW = 2,
-  SEV_MEDIEM = 3,
+  SEV_MEDIUM = 3,
   SEV_HIGH = 4,
   SEV_CRITICAL = 5
 } severity_t;

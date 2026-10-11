@@ -17,7 +17,7 @@ typedef struct json_value
 
 typedef struct json_member {
   char *key;
-  json_type_t *value;
+  json_value_t *value;
   struct json_member *next;
 } json_member_t;
 

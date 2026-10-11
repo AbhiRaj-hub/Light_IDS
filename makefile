@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -std=c11 -D_GNU_SOURCE -Iinclude
+CFLAGS = -Wall -Wextra -O2 -std=c11 -Iinclude
 LDFLAGS = -lpcap -lcurl -lpthread -lm
 
 SRC = src/json.c src/util.c src/event_logger.c src/signature_detector.c \

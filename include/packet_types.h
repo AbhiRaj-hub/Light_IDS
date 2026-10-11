@@ -1,7 +1,6 @@
 #ifndef IDS_PACKET_TYPES_H
 #define IDS_PACKET_TYPES_H
 
-#include <cstddef>
 #include <netinet/in.h>
 #include <stddef.h>
 

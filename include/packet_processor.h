@@ -6,7 +6,6 @@
 #include "event_logger.h"
 #include "packet_types.h"
 #include "signature_detector.h"
-#include <csignal>
 #include <pcap/pcap.h>
 #include <signal.h>
 
@@ -35,7 +34,7 @@ int pp_start_live_capture(
     packet_processor_t
         *pp); // Opens Network Interface for real time packet analysis
 int pp_process_pcap_file(packet_processor_t *pp,
-                         const char pcap_path); // Reads from pcap files
+                         const char *pcap_path); // Reads from pcap files
 void pp_stop(packet_processor_t *pp);
 void pp_get_stats(packet_processor_t *pp, unsigned long *packets,
                   double *elapsed,
