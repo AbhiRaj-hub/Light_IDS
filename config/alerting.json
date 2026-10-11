@@ -1,0 +1,28 @@
+{
+   
+      "enabled
+      "smtp_host": "smt
+      "smtp_port": 587,
+      "use_tls": true,
+      "username": "you
+      "password": "app-password-here",
+      "from_addr": "your-alert-account
+      "to_addrs": ["soc-team@example.com"]
+      
+        
+      
+    "s
+      "enabled
+      "webhook_url": "h
+      
+    "w
+      "enabled":
+      "url": "https://e
+      
+    "m
+    "rate_limit": {
+      "max_events":
+      "window_seconds"
+      
+    
+  
