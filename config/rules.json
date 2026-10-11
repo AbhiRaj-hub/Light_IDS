@@ -1,135 +1,134 @@
 {
-   
-      "versio
-      "description": "Sig
-      "match_types": [
-        "payload_regex
-        "port_match      - flags traffic to/from a specific port",
-        "flag_match      - matches TCP flag combinations (e.g. NUL
-        "payload_contains - simple substring match, case-insensitive"
-        
-      
-    "r
-      {
-       
-        "name": "SQL Inje
-        "description": "Common SQL injec
-        "severity": "high",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "(UNION[[:space:]]+
-        "mitre_attack": "T1190"
-        
-      {
-       
-        "name": "Cross-Si
-        "description": "Script injection tokens in HT
-        "severity": "medium",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "(<script[^>]*>|one
-        "mitre_attack": "T1190"
-        
-      {
-       
-        "name": "Director
-        "description": "Path traversal sequenc
-        "severity": "high",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "(\\.\\./){2,}|(\\.
-        "mitre_attack": "T1083"
-        
-      {
-       
-        "name": "Suspicio
-        "description": "PowerShell -enc/-EncodedCommand 
-        "severity": "high",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "powershell(\\.exe)
-        "mitre_attack": "T1059.001"
-        
-      {
-       
-        "name": "CertUtil
-        "description": "certutil.exe used 
-        "severity": "high",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "certutil(\\.exe)?[
-        "mitre_attack": "T1105"
-        
-      {
-       
-        "name": "Plaintex
-        "description": "Login/password fields sent i
-        "severity": "medium",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "(username|user|log
-        "mitre_attack": "T1040"
-        
-      {
-       
-        "name": "Known Ma
-        "description": "User-Agent strings as
-        "severity": "medium",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "User-Agent:[[:spac
-        "mitre_attack": "T1595"
-        
-      {
-       
-        "name": "NULL Sca
-        "description": "TCP packet with no 
-        "severity": "medium",
-        "protocol": "tcp",
-        "match_type": "fla
-        "pattern": "NULL",
-        "mitre_attack": "T
-        
-      {
-       
-        "name": "XMAS Sca
-        "description": "TCP 
-        "severity": "medium",
-        "protocol": "tcp",
-        "match_type": "fla
-        "pattern": "FPU",
-        "mitre_attack": "
-        
-      {
-       
-        "name": "FIN Scan
-        "description": "TCP
-        "severity": "low",
-        "protocol": "tcp",
-        "match_type": "fla
-        "pattern": "F",
-        "mitre_attack":
-        
-      {
-       
-        "name": "Telnet C
-        "description": "Traffic on Telnet po
-        "severity": "low",
-        "protocol": "tcp",
-        "match_type": "por
-        "pattern": "23",
-        "mitre_attack": 
-        
-      {
-       
-        "name": "Reverse 
-        "description": "Common reverse she
-        "severity": "critical",
-        "protocol": "tcp",
-        "match_type": "pay
-        "pattern": "(/bin/(ba)?sh[[:sp
-        "mitre_attack": "T1059"
-        
-      
-    
-  
+  "meta": {
+    "version": "1.0-c",
+    "description": "Signature rules for Lightweight IDS (C port). Patterns rewritten to POSIX Extended Regular Expressions (compiled with REG_ICASE) — the Python version's PCRE syntax ((?i), \\b, \\s) is not supported by POSIX regex.h.",
+    "match_types": [
+      "payload_regex   - POSIX ERE applied to raw payload bytes (NUL bytes replaced with a space before matching)",
+      "port_match      - flags traffic to/from a specific port",
+      "flag_match      - matches TCP flag combinations (e.g. NULL/FIN/XMAS scans)",
+      "payload_contains - simple substring match, case-insensitive"
+    ]
+  },
+  "rules": [
+    {
+      "id": "SIG-1001",
+      "name": "SQL Injection Attempt",
+      "description": "Common SQL injection tokens observed in HTTP payload",
+      "severity": "high",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "(UNION[[:space:]]+SELECT|OR[[:space:]]+1=1|DROP[[:space:]]+TABLE|--[[:space:]]|xp_cmdshell)",
+      "mitre_attack": "T1190"
+    },
+    {
+      "id": "SIG-1002",
+      "name": "Cross-Site Scripting (XSS) Attempt",
+      "description": "Script injection tokens in HTTP payload",
+      "severity": "medium",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "(<script[^>]*>|onerror[[:space:]]*=|javascript:|document\\.cookie)",
+      "mitre_attack": "T1190"
+    },
+    {
+      "id": "SIG-1003",
+      "name": "Directory Traversal Attempt",
+      "description": "Path traversal sequences targeting file system access",
+      "severity": "high",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "(\\.\\./){2,}|(\\.\\.\\\\){2,}|/etc/passwd|boot\\.ini",
+      "mitre_attack": "T1083"
+    },
+    {
+      "id": "SIG-1004",
+      "name": "Suspicious PowerShell Encoded Command",
+      "description": "PowerShell -enc/-EncodedCommand usage, common in LotL attacks",
+      "severity": "high",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "powershell(\\.exe)?[[:space:]]+.*(-enc|-e|-encodedcommand)[[:space:]]",
+      "mitre_attack": "T1059.001"
+    },
+    {
+      "id": "SIG-1005",
+      "name": "CertUtil Download Abuse",
+      "description": "certutil.exe used to download/decode files, common LotL technique",
+      "severity": "high",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "certutil(\\.exe)?[[:space:]]+.*(-urlcache|-decode|-verifyctl)",
+      "mitre_attack": "T1105"
+    },
+    {
+      "id": "SIG-1006",
+      "name": "Plaintext Credential Transmission",
+      "description": "Login/password fields sent in cleartext",
+      "severity": "medium",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "(username|user|login)=.*&(password|pwd|pass)=",
+      "mitre_attack": "T1040"
+    },
+    {
+      "id": "SIG-1007",
+      "name": "Known Malicious User-Agent",
+      "description": "User-Agent strings associated with scanning/exploitation tools",
+      "severity": "medium",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "User-Agent:[[:space:]]*(sqlmap|nikto|nmap|masscan|python-requests|curl/7\\.[[:digit:]]+.*scanner)",
+      "mitre_attack": "T1595"
+    },
+    {
+      "id": "SIG-1008",
+      "name": "NULL Scan (Stealth Scan)",
+      "description": "TCP packet with no flags set, used for OS fingerprinting/scanning",
+      "severity": "medium",
+      "protocol": "tcp",
+      "match_type": "flag_match",
+      "pattern": "NULL",
+      "mitre_attack": "T1046"
+    },
+    {
+      "id": "SIG-1009",
+      "name": "XMAS Scan",
+      "description": "TCP packet with FIN, PSH, URG flags set simultaneously",
+      "severity": "medium",
+      "protocol": "tcp",
+      "match_type": "flag_match",
+      "pattern": "FPU",
+      "mitre_attack": "T1046"
+    },
+    {
+      "id": "SIG-1010",
+      "name": "FIN Scan",
+      "description": "TCP packet with only the FIN flag set",
+      "severity": "low",
+      "protocol": "tcp",
+      "match_type": "flag_match",
+      "pattern": "F",
+      "mitre_attack": "T1046"
+    },
+    {
+      "id": "SIG-1011",
+      "name": "Telnet Cleartext Protocol",
+      "description": "Traffic on Telnet port, an inherently insecure cleartext protocol",
+      "severity": "low",
+      "protocol": "tcp",
+      "match_type": "port_match",
+      "pattern": "23",
+      "mitre_attack": "T1040"
+    },
+    {
+      "id": "SIG-1012",
+      "name": "Reverse Shell Indicator",
+      "description": "Common reverse shell one-liner tokens",
+      "severity": "critical",
+      "protocol": "tcp",
+      "match_type": "payload_regex",
+      "pattern": "(/bin/(ba)?sh[[:space:]]+-i|nc[[:space:]]+-e[[:space:]]+/bin/|bash[[:space:]]+-c[[:space:]]+.*(>&|/dev/tcp)|socket\\.socket.*SOCK_STREAM)",
+      "mitre_attack": "T1059"
+    }
+  ]
+}
